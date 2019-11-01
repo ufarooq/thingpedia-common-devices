@@ -1,0 +1,9 @@
+{
+  "name": "com.yelp",
+  "version": "1.0.0",
+  "description": "Yelp API for Almond",
+  "main": "device.js",
+  "author": "Silei Xu",
+  "license": "MIT",
+  "dependencies": {}
+}

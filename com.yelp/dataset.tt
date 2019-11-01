@@ -1,0 +1,19 @@
+dataset @com.yelp language "en" {
+    query := @com.yelp.search()
+    #_[utterances=[',search on Yelp', 'restaurants on Yelp', 'restaurants', 'restaurant']];
+
+    query := @com.yelp.search(location=$context.location.current_location)
+    #_[utterances=[',search for restaurants nearby', ', search for restaurants around here on Yelp', 'restaurants nearnby', 'restaurants around here', 'restaurant here']];
+
+    query (p_query:String) := @com.yelp.search(query=p_query)
+    #_[utterances=['${p_query}', '${p_query} on Yelp', '${p_query} restaurants']];
+
+    query (p_rating:Number) := @com.yelp.search(), rating >= p_rating
+    #_[utterances=["${p_rating} star restaurants", "${p_rating} star restaurants on Yelp", 'restaurants rated higher than ${p_rating} star', 'restaurants with at least ${p_rating} star rating', 'restaurants with ${p_rating} stars']];
+
+    query (p_category:String) := @com.yelp.search(), contains(category, p_category)
+    #_[utterances=['${p_category} food', '${p_category} food on Yelp', '${p_category} restaurants', 'restaurants offer ${p_category} food']];
+
+    query () := @com.yelp.search(), open == true
+    #_[utterances=['restaurants still open now', 'open restaurants', 'restaurants not closed yet']];
+}
